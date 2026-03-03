@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Great Conflict Archives | 2045-2067</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+        
+        * {
+            font-family: 'Rajdhani', sans-serif;
+        }
+        
+        .mono {
+            font-family: 'Share Tech Mono', monospace;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            position: relative;
+        }
+        
+        /* Scanline effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        /* Glitch effect for headers */
+        .glitch {
+            position: relative;
+            animation: glitch-skew 5s infinite linear alternate-reverse;
+        }
+        
+        @keyframes glitch-skew {
+            0% { transform: skewX(0deg); }
+            10% { transform: skewX(0deg); }
+            11% { transform: skewX(2deg); }
+            13% { transform: skewX(0deg); }
+            100% { transform: skewX(0deg); }
+        }
+        
+        /* Neon glow effect */
+        .neon-amber {
+            text-shadow: 0 0 10px #ffb000, 0 0 20px #ffb000, 0 0 30px #ffb000;
+        }
+        
+        .neon-green {
+            text-shadow: 0 0 10px #00ff41, 0 0 20px #00ff41;
+        }
+        
+        /* Border animations */
+        .border-pulse {
+            animation: border-pulse 2s infinite;
+        }
+        
+        @keyframes border-pulse {
+            0%, 100% { border-color: #ffb000; }
+            50% { border-color: #ff8800; }
+        }
+        
+        /* Number counter animation */
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .counter {
+            animation: flicker 3s infinite;
+        }
+        
+        /* Timeline item hover effect */
+        .timeline-item {
+            border-left: 2px solid #333;
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-item:hover {
+            border-left-color: #ffb000;
+            background-color: rgba(255, 176, 0, 0.05);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #0a0a0a;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #ffb000;
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #ff8800;
+        }
+        
+        /* Map pulse animation */
+        @keyframes map-pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        
+        .map-marker {
+            animation: map-pulse 2s infinite;
+        }
+        
+        /* Digital clock styling */
+        .digital-clock {
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Card hover effect */
+        .stat-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, rgba(255, 176, 0, 0.05) 0%, rgba(0, 255, 65, 0.02) 100%);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 176, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    
+    <!-- Header Navigation -->
+    <header class="fixed w-full top-0 z-50 bg-black/90 backdrop-blur-sm border-b border-amber-500/30">
+        <nav class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <div class="w-3 h-3 bg-amber-500 animate-pulse"></div>
+                    <h1 class="text-xl md:text-2xl font-bold neon-amber mono">CONFLICT ARCHIVE 2100</h1>
+                </div>
+                <ul class="hidden md:flex space-x-8 text-sm font-semibold tracking-wider">
+                    <li><a href="#timeline" class="hover:text-amber-500 transition-colors uppercase">Timeline</a></li>
+                    <li><a href="#parties" class="hover:text-amber-500 transition-colors uppercase">Conflicting Parties</a></li>
+                    <li><a href="#turning-points" class="hover:text-amber-500 transition-colors uppercase">Turning Points</a></li>
+                    <li><a href="#losses" class="hover:text-amber-500 transition-colors uppercase">Losses</a></li>
+                    <li><a href="#archive" class="hover:text-amber-500 transition-colors uppercase">Archive Material</a></li>
+                </ul>
+                <button class="md:hidden text-amber-500">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-20">
+        
+        <!-- Hero Section -->
+        <section class="container mx-auto px-4 py-12 md:py-20">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                
+                <!-- Interactive World Map -->
+                <div class="relative">
+                    <h2 class="text-2xl md:text-3xl font-bold mb-6 glitch">
+                        <span class="text-amber-500">THEATER OF OPERATIONS</span>
+                        <span class="block text-sm text-gray-500 mono mt-2">2045 - 2067</span>
+                    </h2>
+                    <div class="border border-amber-500/30 p-4 bg-black/50">
+                        <svg viewBox="0 0 1000 500" class="w-full h-auto">
+                            <!-- World Map Background -->
+                            <rect width="1000" height="500" fill="#0a0a0a"/>
+                            
+                            <!-- Grid lines for effect -->
+                            <defs>
+                                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a1a1a" stroke-width="0.5"/>
+                                </pattern>
+                                
+                                <!-- Arrow marker definitions -->
+                                <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#ff0000" />
+                                </marker>
+                                <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#0096ff" />
+                                </marker>
+                                <marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#ffb000" />
+                                </marker>
+                            </defs>
+                            <rect width="1000" height="500" fill="url(#grid)"/>
+                            
+                            <!-- Continents (simplified) -->
+                            <!-- North America -->
+                            <path d="M80,140 L120,100 L180,95 L220,110 L240,140 L230,180 L200,220 L160,230 L120,210 L90,180 Z" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                            
+                            <!-- South America -->
+                            <path d="M180,280 L200,260 L220,280 L230,320 L220,360 L200,380 L180,370 L170,340 L175,300 Z" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                            
+                            <!-- Europe -->
+                            <path d="M450,120 L490,110 L520,125 L530,150 L510,170 L480,165 L460,145 Z" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                            
+                            <!-- Africa -->
+                            <path d="M470,200 L520,195 L540,220 L545,270 L530,310 L500,320 L475,300 L465,250 Z" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                            
+                            <!-- Asia -->
+                            <path d="M550,100 L650,95 L720,105 L760,130 L770,160 L750,190 L700,200 L650,195 L600,180 L570,150 Z" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                            
+                            <!-- Australia -->
+                            <path d="M730,310 L780,305 L800,325 L795,355 L770,365 L740,355 L725,335 Z" fill="#1a1a1a" stroke="#333" stroke-width="1"/>
+                            
+                            <!-- Middle East region (detailed) -->
+                            <path d="M520,180 L560,175 L585,185 L590,205 L575,220 L550,215 L525,200 Z" fill="#1a1a1a" stroke="#333" stroke-width="1.5"/>
+                            
+                            <!-- Highlighted Countries -->
+                            
+                            <!-- USA (highlighted in blue) -->
+                            <path d="M80,140 L120,100 L180,95 L220,110 L240,140 L230,180 L200,220 L160,230 L120,210 L90,180 Z" 
+                                  fill="rgba(0, 150, 255, 0.3)" stroke="#0096ff" stroke-width="2" class="map-marker"/>
+                            <circle cx="170" cy="160" r="8" fill="#0096ff" stroke="#fff" stroke-width="2" class="map-marker"/>
+                            <text x="170" y="150" font-size="12" fill="#0096ff" font-weight="bold" class="mono" text-anchor="middle">USA</text>
+                            
+                            <!-- Iran (highlighted in red) -->
+                            <ellipse cx="570" cy="195" rx="25" ry="20" fill="rgba(255, 0, 0, 0.3)" stroke="#ff0000" stroke-width="2" class="map-marker"/>
+                            <circle cx="570" cy="195" r="8" fill="#ff0000" stroke="#fff" stroke-width="2" class="map-marker"/>
+                            <text x="570" y="230" font-size="12" fill="#ff0000" font-weight="bold" class="mono" text-anchor="middle">IRAN</text>
+                            
+                            <!-- Israel (highlighted in amber) -->
+                            <circle cx="535" cy="200" r="6" fill="#ffb000" stroke="#fff" stroke-width="2" class="map-marker"/>
+                            <text x="535" y="185" font-size="11" fill="#ffb000" font-weight="bold" class="mono" text-anchor="middle">ISRAEL</text>
+                            
+                            <!-- US Military Bases in Middle East -->
+                            <circle cx="590" cy="220" r="4" fill="#0096ff" class="map-marker"/>
+                            <text x="595" y="235" font-size="8" fill="#888" class="mono">Qatar</text>
+                            
+                            <circle cx="545" cy="230" r="4" fill="#0096ff" class="map-marker"/>
+                            <text x="545" y="245" font-size="8" fill="#888" class="mono">UAE</text>
+                            
+                            <circle cx="560" cy="245" r="4" fill="#0096ff" class="map-marker"/>
+                            <text x="560" y="260" font-size="8" fill="#888" class="mono">Diego Garcia</text>
+                            
+                            <circle cx="520" cy="215" r="4" fill="#0096ff" class="map-marker"/>
+                            <text x="495" y="218" font-size="8" fill="#888" class="mono">Jordan</text>
+                            
+                            <!-- Attack Arrows -->
+                            
+                            <!-- USA to Iran (curved arrow) -->
+                            <path d="M 190,165 Q 380,140 560,190" 
+                                  fill="none" stroke="#0096ff" stroke-width="3" 
+                                  stroke-dasharray="8,4" marker-end="url(#arrowBlue)" 
+                                  opacity="0.8" class="map-marker">
+                                <animate attributeName="stroke-dashoffset" from="0" to="24" dur="2s" repeatCount="indefinite"/>
+                            </path>
+                            <text x="380" y="135" font-size="9" fill="#0096ff" class="mono" text-anchor="middle">STRIKE VECTOR</text>
+                            
+                            <!-- Israel to Iran (arrow) -->
+                            <path d="M 540,202 L 560,195" 
+                                  fill="none" stroke="#ffb000" stroke-width="3" 
+                                  stroke-dasharray="6,3" marker-end="url(#arrowOrange)" 
+                                  opacity="0.8" class="map-marker">
+                                <animate attributeName="stroke-dashoffset" from="0" to="18" dur="1.5s" repeatCount="indefinite"/>
+                            </path>
+                            
+                            <!-- Iran to Israel (counter arrow) -->
+                            <path d="M 565,198 Q 555,205 540,205" 
+                                  fill="none" stroke="#ff0000" stroke-width="2.5" 
+                                  stroke-dasharray="5,3" marker-end="url(#arrowRed)" 
+                                  opacity="0.8" class="map-marker">
+                                <animate attributeName="stroke-dashoffset" from="0" to="16" dur="1.5s" repeatCount="indefinite"/>
+                            </path>
+                            
+                            <!-- Iran to Qatar base -->
+                            <path d="M 575,200 Q 585,205 588,218" 
+                                  fill="none" stroke="#ff0000" stroke-width="2" 
+                                  stroke-dasharray="4,2" marker-end="url(#arrowRed)" 
+                                  opacity="0.7" class="map-marker">
+                                <animate attributeName="stroke-dashoffset" from="0" to="12" dur="1.2s" repeatCount="indefinite"/>
+                            </path>
+                            
+                            <!-- Iran to UAE base -->
+                            <path d="M 570,205 Q 560,215 547,228" 
+                                  fill="none" stroke="#ff0000" stroke-width="2" 
+                                  stroke-dasharray="4,2" marker-end="url(#arrowRed)" 
+                                  opacity="0.7" class="map-marker">
+                                <animate attributeName="stroke-dashoffset" from="0" to="12" dur="1.3s" repeatCount="indefinite"/>
+                            </path>
+                            
+                            <!-- Iran to Diego Garcia -->
+                            <path d="M 572,202 Q 568,220 562,242" 
+                                  fill="none" stroke="#ff0000" stroke-width="2" 
+                                  stroke-dasharray="4,2" marker-end="url(#arrowRed)" 
+                                  opacity="0.7" class="map-marker">
+                                <animate attributeName="stroke-dashoffset" from="0" to="12" dur="1.4s" repeatCount="indefinite"/>
+                            </path>
+                            
+                            <!-- Iran to Jordan base -->
+                            <path d="M 565,197 Q 545,200 522,212" 
+                                  fill="none" stroke="#ff0000" stroke-width="2" 
+                                  stroke-dasharray="4,2" marker-end="url(#arrowRed)" 
+                                  opacity="0.7" class="map-marker">
+                                <animate attributeName="stroke-dashoffset" from="0" to="12" dur="1.1s" repeatCount="indefinite"/>
+                            </path>
+                            
+                            <!-- Threat radius around Iran -->
+                            <circle cx="570" cy="195" r="60" fill="none" stroke="rgba(255, 0, 0, 0.2)" 
+                                    stroke-width="1" stroke-dasharray="3,3" class="map-marker">
+                                <animate attributeName="r" from="60" to="80" dur="3s" repeatCount="indefinite"/>
+                                <animate attributeName="opacity" from="0.5" to="0" dur="3s" repeatCount="indefinite"/>
+                            </circle>
+                            
+                            <!-- Legend -->
+                            <rect x="20" y="420" width="280" height="70" fill="#000" stroke="#ffb000" stroke-width="1" opacity="0.9"/>
+                            <text x="30" y="440" font-size="10" fill="#ffb000" font-weight="bold" class="mono">LEGEND:</text>
+                            
+                            <line x1="30" y1="455" x2="55" y2="455" stroke="#0096ff" stroke-width="2" stroke-dasharray="6,3"/>
+                            <text x="60" y="458" font-size="9" fill="#fff" class="mono">US Strike Vectors</text>
+                            
+                            <line x1="30" y1="470" x2="55" y2="470" stroke="#ff0000" stroke-width="2" stroke-dasharray="4,2"/>
+                            <text x="60" y="473" font-size="9" fill="#fff" class="mono">Iranian Counter-strikes</text>
+                            
+                            <circle cx="180" cy="455" r="3" fill="#0096ff"/>
+                            <text x="190" y="458" font-size="9" fill="#fff" class="mono">US Military Bases</text>
+                            
+                            <circle cx="180" cy="470" r="3" fill="#ffb000"/>
+                            <text x="190" y="473" font-size="9" fill="#fff" class="mono">Allied Nations</text>
+                        </svg>
+                        <p class="text-xs text-gray-500 mono mt-2 text-center">DECLASSIFIED TACTICAL MAP // CONFLICT PROJECTION ANALYSIS</p>
+                    </div>
+                </div>
+                
+                <!-- Digital Clock and Info -->
+                <div class="space-y-6">
+                    <div class="border border-green-500/30 p-6 bg-black/50">
+                        <p class="text-sm text-gray-400 mono mb-2">PEACE AGREEMENT SIGNED</p>
+                        <div class="digital-clock text-4xl md:text-6xl text-green-400 neon-green font-bold">
+                            <div id="peaceClock">2067.08.15</div>
+                            <div class="text-2xl md:text-3xl mt-2" id="peaceTime">14:33:27 UTC</div>
+                        </div>
+                        <p class="text-xs text-gray-500 mono mt-4">GENEVA CONVENTION HALL // EARTH COALITION TREATY</p>
+                    </div>
+                    
+                    <div class="border border-amber-500/30 p-6 bg-black/50">
+                        <h3 class="text-xl font-bold text-amber-500 mb-3">HISTORICAL RECORD</h3>
+                        <p class="text-sm text-gray-300 leading-relaxed">
+                            This archive documents the Great Conflict of 2045-2067, the last major global war before the establishment of the Unified Earth Government. What follows is a comprehensive analysis compiled from declassified military records, survivor testimonies, and geopolitical data—preserved for future generations to understand the cost of division.
+                        </p>
+                        <div class="mt-4 flex items-center space-x-2">
+                            <div class="w-2 h-2 bg-red-500 animate-pulse"></div>
+                            <p class="text-xs text-red-400 mono">CLASSIFIED LEVEL: PUBLIC DOMAIN (2100)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Stats Widget -->
+        <section class="container mx-auto px-4 py-12">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">
+                <span class="neon-amber">KEY STATISTICS</span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Stat Card 1 -->
+                <div class="stat-card border border-amber-500/30 p-6 rounded-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 border-2 border-amber-500 rounded flex items-center justify-center">
+                            <svg class="w-6 h-6 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div class="text-xs text-gray-500 mono">DURATION</div>
+                    </div>
+                    <div class="counter text-3xl md:text-4xl font-bold text-amber-500 mono mb-2">
+                        22.5 <span class="text-lg">YEARS</span>
+                    </div>
+                    <p class="text-xs text-gray-400">Total conflict duration</p>
+                    <div class="mt-4 h-1 bg-gray-800 rounded overflow-hidden">
+                        <div class="h-full bg-amber-500" style="width: 75%;"></div>
+                    </div>
+                </div>
+
+                <!-- Stat Card 2 -->
+                <div class="stat-card border border-green-500/30 p-6 rounded-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 border-2 border-green-500 rounded flex items-center justify-center">
+                            <svg class="w-6 h-6 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div class="text-xs text-gray-500 mono">NATIONS</div>
+                    </div>
+                    <div class="counter text-3xl md:text-4xl font-bold text-green-400 mono mb-2">
+                        47
+                    </div>
+                    <p class="text-xs text-gray-400">Participating nations</p>
+                    <div class="mt-4 h-1 bg-gray-800 rounded overflow-hidden">
+                        <div class="h-full bg-green-500" style="width: 60%;"></div>
+                    </div>
+                </div>
+
+                <!-- Stat Card 3 -->
+                <div class="stat-card border border-red-500/30 p-6 rounded-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 border-2 border-red-500 rounded flex items-center justify-center">
+                            <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
+                            </svg>
+                        </div>
+                        <div class="text-xs text-gray-500 mono">MEGACITIES</div>
+                    </div>
+                    <div class="counter text-3xl md:text-4xl font-bold text-red-400 mono mb-2">
+                        12
+                    </div>
+                    <p class="text-xs text-gray-400">Destroyed megacities</p>
+                    <div class="mt-4 h-1 bg-gray-800 rounded overflow-hidden">
+                        <div class="h-full bg-red-500" style="width: 90%;"></div>
+                    </div>
+                </div>
+
+                <!-- Stat Card 4 -->
+                <div class="stat-card border border-blue-500/30 p-6 rounded-lg">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-10 h-10 border-2 border-blue-500 rounded flex items-center justify-center">
+                            <svg class="w-6 h-6 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"/>
+                            </svg>
+                        </div>
+                        <div class="text-xs text-gray-500 mono">BORDERS</div>
+                    </div>
+                    <div class="counter text-3xl md:text-4xl font-bold text-blue-400 mono mb-2">
+                        83
+                    </div>
+                    <p class="text-xs text-gray-400">Redrawn borders</p>
+                    <div class="mt-4 h-1 bg-gray-800 rounded overflow-hidden">
+                        <div class="h-full bg-blue-500" style="width: 70%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Timeline Preview -->
+        <section id="timeline" class="container mx-auto px-4 py-12">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">
+                <span class="neon-amber">HISTORICAL TIMELINE</span>
+            </h2>
+            <div class="max-w-4xl mx-auto space-y-6">
+                
+                <!-- Timeline Item 1 -->
+                <div class="timeline-item pl-6 py-4 relative">
+                    <div class="absolute left-0 top-6 w-3 h-3 bg-amber-500 rounded-full border-4 border-black"></div>
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                        <h3 class="text-xl font-bold text-amber-500 mono">2045.03.12</h3>
+                        <span class="text-xs text-gray-500 mono">THE SPARK</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">Orbital Station Omega Incident</h4>
+                    <p class="text-sm text-gray-400">
+                        Disputed mining rights on asteroid belt station Omega-7 escalate into armed conflict between the Pacific Alliance and Eurasian Federation. First casualties recorded in space territory.
+                    </p>
+                    <div class="flex gap-2 mt-3">
+                        <span class="text-xs px-2 py-1 bg-red-500/20 text-red-400 rounded mono">CONFLICT START</span>
+                        <span class="text-xs px-2 py-1 bg-gray-800 text-gray-400 rounded mono">247 CASUALTIES</span>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="timeline-item pl-6 py-4 relative">
+                    <div class="absolute left-0 top-6 w-3 h-3 bg-red-500 rounded-full border-4 border-black"></div>
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                        <h3 class="text-xl font-bold text-red-500 mono">2048.07.29</h3>
+                        <span class="text-xs text-gray-500 mono">ESCALATION</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">The Fall of Neo-Tokyo</h4>
+                    <p class="text-sm text-gray-400">
+                        First megacity to fall. Electromagnetic pulse weapons deployed, causing complete infrastructure collapse. 8.3 million evacuated. Marked the beginning of urban warfare era.
+                    </p>
+                    <div class="flex gap-2 mt-3">
+                        <span class="text-xs px-2 py-1 bg-red-500/20 text-red-400 rounded mono">MAJOR LOSS</span>
+                        <span class="text-xs px-2 py-1 bg-gray-800 text-gray-400 rounded mono">8.3M DISPLACED</span>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="timeline-item pl-6 py-4 relative">
+                    <div class="absolute left-0 top-6 w-3 h-3 bg-orange-500 rounded-full border-4 border-black"></div>
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                        <h3 class="text-xl font-bold text-orange-500 mono">2055.11.03</h3>
+                        <span class="text-xs text-gray-500 mono">TURNING POINT</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">Arctic Resource Agreement</h4>
+                    <p class="text-sm text-gray-400">
+                        Unexpected alliance formed between Northern Coalition and African Union. Redistribution of Arctic resources begins. First signs of potential peace negotiations.
+                    </p>
+                    <div class="flex gap-2 mt-3">
+                        <span class="text-xs px-2 py-1 bg-green-500/20 text-green-400 rounded mono">DIPLOMATIC WIN</span>
+                        <span class="text-xs px-2 py-1 bg-gray-800 text-gray-400 rounded mono">14 NATIONS</span>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 4 -->
+                <div class="timeline-item pl-6 py-4 relative">
+                    <div class="absolute left-0 top-6 w-3 h-3 bg-purple-500 rounded-full border-4 border-black"></div>
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                        <h3 class="text-xl font-bold text-purple-500 mono">2062.04.17</h3>
+                        <span class="text-xs text-gray-500 mono">CEASEFIRE</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">Global Ceasefire Declaration</h4>
+                    <p class="text-sm text-gray-400">
+                        Following the catastrophic Sector-9 incident, all major factions agree to temporary ceasefire. UN Emergency Council convened. Beginning of the Long Peace Talks.
+                    </p>
+                    <div class="flex gap-2 mt-3">
+                        <span class="text-xs px-2 py-1 bg-purple-500/20 text-purple-400 rounded mono">CEASEFIRE</span>
+                        <span class="text-xs px-2 py-1 bg-gray-800 text-gray-400 rounded mono">47 NATIONS</span>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 5 -->
+                <div class="timeline-item pl-6 py-4 relative">
+                    <div class="absolute left-0 top-6 w-3 h-3 bg-green-500 rounded-full border-4 border-black"></div>
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                        <h3 class="text-xl font-bold text-green-500 mono">2067.08.15</h3>
+                        <span class="text-xs text-gray-500 mono">PEACE</span>
+                    </div>
+                    <h4 class="text-lg font-semibold mb-2">Geneva Peace Treaty Signed</h4>
+                    <p class="text-sm text-gray-400">
+                        After 5 years of negotiations, the Earth Coalition Treaty is signed by all 47 participating nations. Marks the official end of the Great Conflict and beginning of the Reconstruction Era.
+                    </p>
+                    <div class="flex gap-2 mt-3">
+                        <span class="text-xs px-2 py-1 bg-green-500/20 text-green-400 rounded mono">CONFLICT END</span>
+                        <span class="text-xs px-2 py-1 bg-gray-800 text-gray-400 rounded mono">TREATY SIGNED</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Visualization -->
+        <section class="container mx-auto px-4 py-12">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center">
+                <span class="neon-amber">GLOBAL RESOURCE DISTRIBUTION</span>
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                
+                <!-- Pie Chart -->
+                <div class="border border-amber-500/30 p-6 bg-black/50 rounded-lg">
+                    <h3 class="text-lg font-semibold mb-4 text-amber-500 mono">PRE-WAR (2045)</h3>
+                    <canvas id="preWarChart"></canvas>
+                    <p class="text-xs text-gray-500 mono mt-4 text-center">RESOURCE CONTROL BY ALLIANCE</p>
+                </div>
+
+                <!-- Bar Chart -->
+                <div class="border border-green-500/30 p-6 bg-black/50 rounded-lg">
+                    <h3 class="text-lg font-semibold mb-4 text-green-400 mono">POST-WAR (2067)</h3>
+                    <canvas id="postWarChart"></canvas>
+                    <p class="text-xs text-gray-500 mono mt-4 text-center">REDISTRIBUTED TERRITORIES</p>
+                </div>
+            </div>
+
+            <!-- Additional Stats -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="border border-gray-700 p-4 bg-black/50 rounded">
+                    <p class="text-xs text-gray-500 mono mb-2">ENERGY GRID RESTORATION</p>
+                    <div class="flex items-end justify-between">
+                        <span class="text-2xl font-bold text-amber-500 mono">67%</span>
+                        <span class="text-xs text-gray-600">AS OF 2100</span>
+                    </div>
+                    <div class="mt-2 h-2 bg-gray-800 rounded overflow-hidden">
+                        <div class="h-full bg-amber-500" style="width: 67%;"></div>
+                    </div>
+                </div>
+
+                <div class="border border-gray-700 p-4 bg-black/50 rounded">
+                    <p class="text-xs text-gray-500 mono mb-2">POPULATION RECOVERY</p>
+                    <div class="flex items-end justify-between">
+                        <span class="text-2xl font-bold text-green-400 mono">82%</span>
+                        <span class="text-xs text-gray-600">AS OF 2100</span>
+                    </div>
+                    <div class="mt-2 h-2 bg-gray-800 rounded overflow-hidden">
+                        <div class="h-full bg-green-500" style="width: 82%;"></div>
+                    </div>
+                </div>
+
+                <div class="border border-gray-700 p-4 bg-black/50 rounded">
+                    <p class="text-xs text-gray-500 mono mb-2">UNIFIED GOVERNANCE</p>
+                    <div class="flex items-end justify-between">
+                        <span class="text-2xl font-bold text-blue-400 mono">94%</span>
+                        <span class="text-xs text-gray-600">AS OF 2100</span>
+                    </div>
+                    <div class="mt-2 h-2 bg-gray-800 rounded overflow-hidden">
+                        <div class="h-full bg-blue-500" style="width: 94%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Archive Footer -->
+        <footer class="container mx-auto px-4 py-12 mt-20 border-t border-gray-800">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h4 class="text-lg font-bold text-amber-500 mb-4 mono">ARCHIVE ACCESS</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-amber-500 transition-colors">Declassified Documents</a></li>
+                        <li><a href="#" class="hover:text-amber-500 transition-colors">Survivor Testimonies</a></li>
+                        <li><a href="#" class="hover:text-amber-500 transition-colors">Military Records</a></li>
+                        <li><a href="#" class="hover:text-amber-500 transition-colors">Media Archive</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-green-400 mb-4 mono">RESEARCH TOOLS</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Interactive Timeline</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">3D Battle Reconstructions</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Geopolitical Analysis</a></li>
+                        <li><a href="#" class="hover:text-green-400 transition-colors">Statistical Database</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold text-blue-400 mb-4 mono">ABOUT</h4>
+                    <p class="text-sm text-gray-400 mb-4">
+                        Established by the United Earth Government Historical Preservation Committee. Mission: To ensure future generations understand the cost of conflict and the value of unity.
+                    </p>
+                    <p class="text-xs text-gray-600 mono">© 2100 EARTH COALITION ARCHIVES</p>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-gray-900 text-center">
+                <p class="text-xs text-gray-600 mono">
+                    CLASSIFICATION: PUBLIC DOMAIN // LAST UPDATED: 2100.03.03 // ARCHIVE VERSION 3.7.2
+                </p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- JavaScript for Charts and Clock -->
+    <script>
+        // Digital Clock Update
+        function updateClock() {
+            const peaceDateElement = document.getElementById('peaceClock');
+            const peaceTimeElement = document.getElementById('peaceTime');
+            
+            // Static peace date (historical)
+            peaceDateElement.textContent = '2067.08.15';
+            peaceTimeElement.textContent = '14:33:27 UTC';
+        }
+        
+        updateClock();
+
+        // Pre-War Resource Distribution (Pie Chart)
+        const preWarCtx = document.getElementById('preWarChart').getContext('2d');
+        const preWarChart = new Chart(preWarCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Pacific Alliance', 'Eurasian Federation', 'African Union', 'Northern Coalition', 'South American Bloc'],
+                datasets: [{
+                    label: 'Resource Control %',
+                    data: [35, 28, 12, 15, 10],
+                    backgroundColor: [
+                        'rgba(255, 176, 0, 0.8)',
+                        'rgba(255, 0, 0, 0.8)',
+                        'rgba(0, 255, 65, 0.8)',
+                        'rgba(0, 150, 255, 0.8)',
+                        'rgba(138, 43, 226, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 176, 0, 1)',
+                        'rgba(255, 0, 0, 1)',
+                        'rgba(0, 255, 65, 1)',
+                        'rgba(0, 150, 255, 1)',
+                        'rgba(138, 43, 226, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#e0e0e0',
+                            font: {
+                                family: 'Share Tech Mono',
+                                size: 10
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Post-War Resource Distribution (Bar Chart)
+        const postWarCtx = document.getElementById('postWarChart').getContext('2d');
+        const postWarChart = new Chart(postWarCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Pacific Alliance', 'Eurasian Federation', 'African Union', 'Northern Coalition', 'South American Bloc', 'Earth Coalition'],
+                datasets: [{
+                    label: 'Territory Control %',
+                    data: [18, 16, 15, 14, 12, 25],
+                    backgroundColor: [
+                        'rgba(255, 176, 0, 0.8)',
+                        'rgba(255, 0, 0, 0.8)',
+                        'rgba(0, 255, 65, 0.8)',
+                        'rgba(0, 150, 255, 0.8)',
+                        'rgba(138, 43, 226, 0.8)',
+                        'rgba(255, 255, 255, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 176, 0, 1)',
+                        'rgba(255, 0, 0, 1)',
+                        'rgba(0, 255, 65, 1)',
+                        'rgba(0, 150, 255, 1)',
+                        'rgba(138, 43, 226, 1)',
+                        'rgba(255, 255, 255, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            color: '#e0e0e0',
+                            font: {
+                                family: 'Share Tech Mono'
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            color: '#e0e0e0',
+                            font: {
+                                family: 'Share Tech Mono',
+                                size: 9
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
