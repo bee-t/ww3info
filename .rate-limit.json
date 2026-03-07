@@ -1,0 +1,405 @@
+{
+  "date": "2026-03-07",
+  "count": 3,
+  "lastFetch": {
+    "timestamp": "2026-03-07T03:37:00.838Z",
+    "data": {
+      "news": [
+        {
+          "id": "86040958-0fd7-46ba-a647-7d8581445f9e",
+          "title": "Tech giants break silence on Anthropic",
+          "description": "{beacon} Technology Technology   The Big Story  Tech giants break silence on Anthropic spat  Three major tech companies — Microsoft, Google and Amazon — have said Anthropic's AI tools will remain available on their platforms for work that does not involve the Pentagon after the company was labeled a...",
+          "url": "https://thehill.com/homenews/5772301-tech-giants-break-silence-on-anthropic/",
+          "author": "thehill",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 23:07:09 +0000"
+        },
+        {
+          "id": "31c97a4c-9a7b-4153-b94a-e79f417145d9",
+          "title": "Trump calls on Congress to pass bill aimed at bolstering college sports",
+          "description": "President Trump on Friday called on Congress to establish a national framework to stabilize college sports amid court rulings, image and likeness deals and recruiting changes have put the multibillion-dollar collegiate NCAA system under siege.",
+          "url": "https://www.washingtontimes.com/news/2026/mar/6/trump-calls-congress-pass-bill-aimed-bolstering-college-sports/",
+          "author": "Jeff Mordock",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 23:00:46 +0000"
+        },
+        {
+          "id": "16b1a314-9981-4651-a639-553285bd954a",
+          "title": "Man accused of setting fire to rep's office over TikTok ban sentenced to prison",
+          "description": "A Wisconsin man accused of attempting to set fire to Rep. Glenn Grothman's (R-Wisc.) office for his support of a bill to have TikTok's Chinese owner sell off its U.S. operations was sentenced to seven years in prison on Thursday. Caiden Stachowicz, 20, was also sentenced in Fond du Lac County Court ...",
+          "url": "https://thehill.com/regulation/court-battles/5772209-mental-health-crisis-leads-to-arson-tiktok/",
+          "author": "thehill",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 23:00:36 +0000"
+        },
+        {
+          "id": "e3e59502-0323-4c24-ba92-6da151e6ef9d",
+          "title": "Trump faces an awkward COVID reckoning of his own six years later",
+          "description": "When a coalition of civil rights groups launched the COVID Justice Resolution this week, a formal call for Congress to repudiate pandemic-era government overreach, they were asking, in part, for accountability from the man who started it all.",
+          "url": "https://www.washingtontimes.com/news/2026/mar/6/trump-faces-awkward-covid-reckoning-six-years-later/",
+          "author": "The Washington Times AI News Desk",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 22:37:34 +0000"
+        },
+        {
+          "id": "7761ce8b-1519-434c-a713-71027dfb6b42",
+          "title": "After the strikes, how would the US secure Iran’s enriched uranium?",
+          "description": "When War Secretary Pete Hegseth was asked recently whether U.S. forces would ever move to secure enriched uranium reportedly stored at Iran's Isfahan nuclear complex, he declined to say, citing operational security.The exchange highlighted a question the U.S. and Israel's air campaign alone cannot a...",
+          "url": "https://www.foxnews.com/politics/after-strikes-how-would-us-secure-irans-enriched-uranium",
+          "author": "Fox News",
+          "image": "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2026/03/1024/512/special-forces-1.jpg?ve=1&tl=1",
+          "language": "en",
+          "category": [
+            "politics",
+            "world"
+          ],
+          "published": "2026-03-06 22:23:27 +0000"
+        },
+        {
+          "id": "dd5b70cd-7b63-47d4-a47b-44102cbac741",
+          "title": "Man who killed parents to fund Trump assassination plot sentenced to life in prison",
+          "description": "A Wisconsin man was sentenced to life in prison Thursday after he pleaded guilty to killing his parents in order to fund a plot to assassinate President Trump involving a drone with explosives or an AR-15 assault rifle. Nikita Casap, 18, pleaded guilty to two counts of first-degree intentional homic...",
+          "url": "https://thehill.com/regulation/court-battles/5772117-trump-assassination-plot-wisconsin/",
+          "author": "thehill",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 22:16:37 +0000"
+        },
+        {
+          "id": "c83130c6-4e37-41e1-b6ef-37b5a58e3374",
+          "title": "California Democrat says Noem ouster is proof DHS shutdown is 'working'",
+          "description": "Rep. Sydney Kamlager-Dove (D-Calif.) on Friday pointed to the firing of Kristi Noem as proof that the shutdown of the Department of Homeland Security (DHS) was \"working,\" insisting it would not persuade Democrats to drop their demands for Republicans to rein in immigration enforcement operations. Ka...",
+          "url": "https://thehill.com/homenews/house/5772149-kamlager-dove-noem-firing-dhs-shutdown/",
+          "author": "thehill",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 22:04:13 +0000"
+        },
+        {
+          "id": "b28384c7-acd0-478f-9863-c922bded8cf9",
+          "title": "Congress has chance to update kids' digital privacy law, while other online safety bills stall",
+          "description": "Congress is struggling for consensus on legislation to protect kids in the digital age after years of legislative work, but at least one bill stands a shot of becoming law this year.",
+          "url": "https://www.washingtontimes.com/news/2026/mar/6/congress-chance-update-kids-digital-privacy-law-online-safety-bills/",
+          "author": "Lindsey McPherson",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 22:00:55 +0000"
+        },
+        {
+          "id": "ad43ce50-fcee-4f7a-9e92-51a90c0f0398",
+          "title": "Trump urges Congress to 'fix' college football money mess",
+          "description": "Critics of the name, image and likeness (NIL) compensation system in college sports say it undercuts the finances of schools and their educational mandate.",
+          "url": "https://www.cnbc.com/2026/03/06/trump-college-football-sports-congress.html",
+          "author": "Dan Mangan",
+          "image": "https://image.cnbcfm.com/api/v1/image/108275031-17728323472026-03-06t212521z_986563641_rc29zja4er4b_rtrmadp_0_usa-trump.jpeg?v=1772832373&w=1920&h=1080",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 22:00:07 +0000"
+        },
+        {
+          "id": "2157fefc-a3f3-488f-a45f-0bea98991fb6",
+          "title": "How Georgia's power bills are sparking the midterms",
+          "description": "",
+          "url": "https://www.politico.com/newsletters/power-switch/2026/03/06/how-georgias-power-bills-are-sparking-the-midterms-00817133",
+          "author": "Arianna Skibell",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics",
+            "regional"
+          ],
+          "published": "2026-03-06 22:00:00 +0000"
+        },
+        {
+          "id": "812c7f67-ded3-48ba-9ca0-00cd7c059994",
+          "title": "John Cornyn Chose Jack Smith, Joe Biden, Illegal Aliens Over Trump, Texas",
+          "description": "John Cornyn's record is receiving increased scrutiny as the Washington establishment spends tens of millions to save the embattled incumbent.",
+          "url": "https://www.breitbart.com/politics/2026/03/06/record-review-john-cornyn-chose-jack-smith-joe-biden-illegal-aliens-over-trump-texas/",
+          "author": "Bradley Jaye",
+          "image": "https://media.breitbart.com/media/2026/03/John-Cornyn-Elevator.jpeg",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 21:46:43 +0000"
+        },
+        {
+          "id": "b2cc55a0-36cd-4626-b544-38436ffa3fc7",
+          "title": "Trump says defense contractors agree to quadruple production of 'exquisite class' weapons",
+          "description": "President Trump said the major defense contractors have agreed to quadruple the production of the \"exquisite class\" weaponry following a meeting at the White House on Friday.  \"They have agreed to quadruple Production of the 'Exquisite Class' Weaponry in that we want to reach, as rapidly as possible...",
+          "url": "https://thehill.com/policy/defense/5772125-quadruple-weaponry-production-trump/",
+          "author": "thehill",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 21:40:10 +0000"
+        },
+        {
+          "id": "63b0ff3f-149a-4bc7-b99e-e3794590a081",
+          "title": "Putin Urges End to Hostilities in Call With Iran's Pezeshkian",
+          "description": "Russian President Vladimir Putin emphasized the need for an immediate halt to hostilities in the Middle East during a phone call Friday with Iranian …",
+          "url": "https://www.bloomberg.com/news/articles/2026-03-06/putin-urges-end-to-hostilities-in-call-with-iran-s-pezeshkian",
+          "author": "Tala Ahmadi",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 21:38:23 +0000"
+        },
+        {
+          "id": "64e8cb6b-3fe2-48d4-badf-58c0eebbe8b7",
+          "title": "National Symphony director to exit amid Kennedy Center fight",
+          "description": "Jean Davidson announced she was exiting her position as the executive director of the National Symphony Orchestra (NSO) on Friday, citing frustrations with President Trump's controversial changes that have caused recent turmoil at the Kennedy Center.  \"It's no secret that this has been a really hard...",
+          "url": "https://thehill.com/homenews/administration/5772066-kennedy-center-turmoil-ns/",
+          "author": "thehill",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 21:31:11 +0000"
+        },
+        {
+          "id": "96694b82-996a-4253-8858-9164aabccc8a",
+          "title": "Trump's military actions reassert America's role as global policeman",
+          "description": "President Trump campaigned on an \"America First\" foreign policy, vowing that the U.S. would no longer serve as the world's policeman, entangled in unaffordable forever wars.\nYet he has unleashed America's military might time and again.",
+          "url": "https://www.washingtontimes.com/news/2026/mar/6/trumps-military-actions-reassert-americas-role-global-policeman/",
+          "author": "Jeff Mordock",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 21:31:02 +0000"
+        },
+        {
+          "id": "ac23d7b1-8642-4c1e-9003-cff37b9948c6",
+          "title": "Six years on, country still waiting for a COVID reckoning",
+          "description": "Six years after the coronavirus pandemic began to rip through the U.S., spreading death and sparking draconian shutdowns, the country still has not had a full accounting of the dystopian restrictions the government imposed to try to control the virus — and the public.",
+          "url": "https://www.washingtontimes.com/news/2026/mar/6/six-years-country-still-waiting-covid-reckoning/",
+          "author": "Stephen Dinan",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 21:31:02 +0000"
+        },
+        {
+          "id": "c32a2676-0fc0-42f3-b8e1-8588aabc9295",
+          "title": "Tech giants say Anthropic tools will remain available for nondefense work",
+          "description": "Three major tech companies — Microsoft, Google and Amazon — have said Anthropic's AI tools will remain available on their platforms for work that does not involve the Pentagon after the company was labeled a supply chain risk. A Google spokesperson said in a statement Friday that they \"understand th...",
+          "url": "https://thehill.com/policy/technology/5771962-tech-companies-anthropic-ai-tools/",
+          "author": "thehill",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 21:28:51 +0000"
+        },
+        {
+          "id": "d85ca0a8-691a-41e8-a0a4-b822871bd97e",
+          "title": "Obama slams Trump at Jesse Jackson funeral without naming him",
+          "description": "Former President Barack Obama on Friday slammed the Trump administration without specifically naming it during a speech at the funeral for the Rev. Jesse Jackson in Chicago, saying \"every day we wake up to some new assault on our democratic institutions.\" The comments came at a star-studded funeral ...",
+          "url": "https://thehill.com/homenews/administration/5771897-obama-slams-trump-administration/",
+          "author": "thehill",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 21:23:57 +0000"
+        },
+        {
+          "id": "df09c548-0877-4aa2-96ba-eb4819c3533b",
+          "title": "Trump says defense CEOs agree to quadruple production of 'Exquisite Class' weaponry",
+          "description": "President Trump said he met with CEOs of BAE Systems, Lockheed Martin, Northrop Grumman, RTX Corp., Boeing, Honeywell Aerospace and L3Harris Missile Solutions.",
+          "url": "https://www.cnbc.com/2026/03/06/iran-war-trump-defense-companies-pete-hegseth.html",
+          "author": "Dan Mangan",
+          "image": "https://image.cnbcfm.com/api/v1/image/108235310-17646945232025-12-02t165348z_956658416_rc2g8iadh0x7_rtrmadp_0_usa-trump.jpeg?v=1764694583&w=1920&h=1080",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 21:20:27 +0000"
+        },
+        {
+          "id": "03596f0d-d817-4a8d-acb7-0a120b561401",
+          "title": "Interview: What Iranian Kurds want",
+          "description": "A possible U.S. move to arm Iranian Kurds would lend the group a historic boost while running the risk of pushing Iran into further disarray.",
+          "url": "https://www.politico.com/newsletters/national-security-daily/2026/03/06/an-inside-look-at-what-iranian-kurds-want-00817211",
+          "author": "Daniella Cheslow and Giselle Ruhiyyih Ewing",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics",
+            "regional"
+          ],
+          "published": "2026-03-06 21:18:20 +0000"
+        },
+        {
+          "id": "5ddeaf28-1d79-4dd8-a8a2-a40dcff64b1e",
+          "title": "Ben Stiller asks White House to remove 'Tropic Thunder' clip from Iran video: 'War is not a movie'",
+          "description": "Ben Stiller criticized the White House on Friday for using a clip from his 2008 satirical action movie \"Tropic Thunder.\" The Trump administration posted a montage video on the social platform X on Thursday from several films with the caption, \"JUSTICE THE AMERICAN WAY.\" The post follows the U.S. and...",
+          "url": "https://thehill.com/blogs/in-the-know/5772012-ben-stiller-criticizes-white-house/",
+          "author": "thehill",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 21:14:42 +0000"
+        },
+        {
+          "id": "f0fe1dfc-c461-4376-9d9a-e4da7a1d78c0",
+          "title": "Rumors Arise That Some Iranian Security Forces Are Failing to Show Up for Duty",
+          "description": "Israeli intelligence suggests “there are signs of Iranian soldiers, police officers and IRGC members failing to show up for duty.”",
+          "url": "https://www.breitbart.com/middle-east/2026/03/06/rumors-arise-that-some-iranian-security-forces-are-failing-to-show-up-for-duty/",
+          "author": "John Hayward",
+          "image": "https://media.breitbart.com/media/2026/03/GettyImages2147884202.jpg",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 21:13:08 +0000"
+        },
+        {
+          "id": "0f1300d2-26f6-40f8-ac98-5eb9f8f1312e",
+          "title": "Markwayne Mullin set to step into limelight with DHS nod",
+          "description": "Sen. Markwayne Mullin (R-Okla.) is set to step into the spotlight as he readies to take on the unexpected challenge of replacing Kristi Noem atop the Department of Homeland Security (DHS), culminating a swift rise from the House to one of the key posts in the Trump administration. In a matter of yea...",
+          "url": "https://thehill.com/homenews/senate/5772015-markwayne-mullin-dhs-nomination/",
+          "author": "thehill",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 21:02:16 +0000"
+        },
+        {
+          "id": "e86c31e2-c154-4ec5-8def-6714685523ed",
+          "title": "Jeremy Larner, Who Wrote 'The Candidate,' a Political Film Classic, Dies at 88",
+          "description": "His Oscar-winning 1972 screenplay starred Robert Redford as an idealistic public interest lawyer making a run for the Senate.",
+          "url": "https://www.nytimes.com/2026/03/06/movies/jeremy-larner-dead.html",
+          "author": "Richard Sandomir",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 21:01:55 +0000"
+        },
+        {
+          "id": "c843b91f-7188-4eb1-a2be-996211b7a126",
+          "title": "Florida Bar reverses itself, says it is not investigating Lindsey Halligan",
+          "description": "A spokesperson said the bar's counsel \"erroneously\" stated there was a \"pending investigation\"; instead, a complaint against Halligan remains at a preliminary stage.",
+          "url": "https://www.washingtonpost.com/politics/2026/03/06/halligan-florida-bar-reversal/",
+          "author": "Jeremy Roebuck, Katie Mettler",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 20:52:36 +0000"
+        },
+        {
+          "id": "db405965-ccd3-474c-be20-09ebb668a68f",
+          "title": "Former President Barack Obama speaks during final public tribute to the late Rev. Jesse Jackson",
+          "description": "CHICAGO — Former President Barack Obama said the presidential runs in the 1980s by the late Rev. Jesse Jackson Sr. set the stage for other Black leaders, including himself.\n\"The message he sent to a 22-year-old child of a single mother with a funny name, an outsider, was that maybe there wasn't any ...",
+          "url": "https://www.politico.com/news/2026/03/06/former-president-barack-obama-speaks-during-final-public-tribute-to-the-late-rev-jesse-jackson-00817250",
+          "author": "politico",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 20:47:39 +0000"
+        },
+        {
+          "id": "2200b05f-6747-4986-badf-074fa40448ad",
+          "title": "Unproven Trump autism claim affected care: Research",
+          "description": "President Trump's urging of pregnant women to avoid taking Tylenol last year on the unfounded claim that it could be linked to autism in children resulted in a notable drop in orders for the common over-the-counter medication among pregnancy-related emergency department visits, according to an analy...",
+          "url": "https://thehill.com/policy/healthcare/5771277-trump-tylenol-autism-study/",
+          "author": "thehill",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 20:43:51 +0000"
+        },
+        {
+          "id": "a0c3d00e-91c0-467b-a25a-2e837c246a2b",
+          "title": "Texas Dem James Talarico Urged Biden to Use Federal Buildings for Abortion Clinics",
+          "description": "Texas Democrat James Talarico urged Joe Biden to open abortion clinics in federal buildings and has repeatedly defended abortion rights.",
+          "url": "https://www.breitbart.com/politics/2026/03/06/texas-democrat-james-talarico-begged-biden-for-federal-abortion-clinics-among-other-pro-abortion-pleas/",
+          "author": "Jasmyn Jordan",
+          "image": "https://media.breitbart.com/media/2026/03/GettyImages2264274446.jpg",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 20:33:14 +0000"
+        },
+        {
+          "id": "d50b875b-be66-4c72-8d10-f688608f662c",
+          "title": "Trump administration unveils $20B reinsurance program to help maritime traffic in Middle East",
+          "description": "The Trump administration is rolling out a $20 billion reinsurance program for ships that are worried about incurring losses due to the U.S.-Israeli on Iran and retaliatory strikes against oil-rich Gulf states.",
+          "url": "https://www.washingtontimes.com/news/2026/mar/6/trump-administration-unveils-20b-reinsurance-program-help-maritime/",
+          "author": "Tom Howell Jr.",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 20:31:08 +0000"
+        },
+        {
+          "id": "eed9af2c-0f93-4102-8b26-8f5a17876850",
+          "title": "Marjorie Taylor Greene says Tucker Carlson could beat Trump in an election",
+          "description": "Former Rep. Marjorie Taylor Greene is throwing her support behind Tucker Carlson for president after President Trump said the conservative commentator has \"lost his way.\"",
+          "url": "https://www.washingtontimes.com/news/2026/mar/6/marjorie-taylor-greene-says-tucker-carlson-could-beat-trump-election/",
+          "author": "Mallory Wilson",
+          "image": "None",
+          "language": "en",
+          "category": [
+            "politics"
+          ],
+          "published": "2026-03-06 20:31:08 +0000"
+        }
+      ],
+      "status": "ok"
+    }
+  }
+}
