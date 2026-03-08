@@ -6,6 +6,7 @@ import { geoMercator, geoPath } from 'd3-geo'
 import { feature } from 'topojson-client'
 import type { FeatureCollection, Geometry } from 'geojson'
 import type { Topology } from 'topojson-specification'
+import Link from 'next/link'
 
 interface MilitaryBase {
   id: string
@@ -14,6 +15,51 @@ interface MilitaryBase {
   lng: number  // Geographic longitude
   country: string
   type: 'us' | 'iran'
+}
+
+interface ApiFire {
+  latitude: number
+  longitude: number
+  brightness?: number
+  confidence?: string
+  acq_date?: string
+  acq_time?: string
+}
+
+interface ApiMilitaryFlight {
+  latitude: number
+  longitude: number
+  callsign?: string
+  altitude?: number
+  speed?: number
+  heading?: number
+  country?: string
+}
+
+interface ApiEarthquake {
+  latitude: number
+  longitude: number
+  magnitude?: number
+  depth?: number
+  place?: string
+  time?: string
+}
+
+interface ApiNuclearFacility {
+  latitude: number
+  longitude: number
+  name?: string
+  type?: string
+  country?: string
+  status?: string
+}
+
+interface ApiMilitaryBaseData {
+  latitude: number
+  longitude: number
+  name?: string
+  country?: string
+  type?: string
 }
 
 interface CountryMetadata {
@@ -436,10 +482,18 @@ export default function InteractiveWorldMap() {
   const [worldData, setWorldData] = useState<FeatureCollection<Geometry> | null>(null)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
+  
+  // API data states
+  const [apiMilitaryBases, setApiMilitaryBases] = useState<ApiMilitaryBaseData[]>([])
+  const [fireDetections, setFireDetections] = useState<ApiFire[]>([])
+  const [militaryFlights, setMilitaryFlights] = useState<ApiMilitaryFlight[]>([])
+  const [earthquakes, setEarthquakes] = useState<ApiEarthquake[]>([])
+  const [nuclearFacilities, setNuclearFacilities] = useState<ApiNuclearFacility[]>([])
+  const [hoveredApiItem, setHoveredApiItem] = useState<{type: string, data: any} | null>(null)
 
   // Map dimensions
   const width = 1000
-  const height = 500
+  const height = 550
 
   // D3 Mercator projection
   const projection = useMemo(() => {
@@ -463,6 +517,64 @@ export default function InteractiveWorldMap() {
         setWorldData(countries)
       })
       .catch(error => console.error('Error loading world data:', error))
+  }, [])
+
+  // Fetch data from external APIs
+  useEffect(() => {
+    // Fetch military bases
+    fetch('/api/military-bases')
+      .then(res => res.json())
+      .then(data => {
+        console.log('Military Bases API Response:', data)
+        const bases = data.bases || []
+        console.log(`✓ Loaded ${bases.length} military bases`)
+        setApiMilitaryBases(bases)
+      })
+      .catch(err => console.error('Error fetching military bases:', err))
+
+    // Fetch fire detections
+    fetch('/api/fire-detections')
+      .then(res => res.json())
+      .then(data => {
+        console.log('Fire Detections API Response:', data)
+        const fires = data.fires || []
+        console.log(`✓ Loaded ${fires.length} fire detections`)
+        setFireDetections(fires)
+      })
+      .catch(err => console.error('Error fetching fire detections:', err))
+
+    // Fetch military flights
+    fetch('/api/military-flights')
+      .then(res => res.json())
+      .then(data => {
+        console.log('Military Flights API Response:', data)
+        const flights = data.flights || []
+        console.log(`✓ Loaded ${flights.length} military flights`)
+        setMilitaryFlights(flights)
+      })
+      .catch(err => console.error('Error fetching military flights:', err))
+
+    // Fetch earthquakes
+    fetch('/api/earthquakes')
+      .then(res => res.json())
+      .then(data => {
+        console.log('Earthquakes API Response:', data)
+        const earthquakes = data.earthquakes || []
+        console.log(`✓ Loaded ${earthquakes.length} earthquakes`)
+        setEarthquakes(earthquakes)
+      })
+      .catch(err => console.error('Error fetching earthquakes:', err))
+
+    // Fetch nuclear facilities
+    fetch('/api/nuclear-facilities')
+      .then(res => res.json())
+      .then(data => {
+        console.log('Nuclear Facilities API Response:', data)
+        const facilities = data.facilities || []
+        console.log(`✓ Loaded ${facilities.length} nuclear facilities`)
+        setNuclearFacilities(facilities)
+      })
+      .catch(err => console.error('Error fetching nuclear facilities:', err))
   }, [])
 
   // Project lat/lng to screen coordinates
@@ -505,6 +617,14 @@ export default function InteractiveWorldMap() {
 
   const handleBaseLeave = () => {
     setHoveredBase(null)
+  }
+
+  const handleApiItemHover = (type: string, data: any) => {
+    setHoveredApiItem({ type, data })
+  }
+
+  const handleApiItemLeave = () => {
+    setHoveredApiItem(null)
   }
 
   // Get country ISO code from properties
@@ -611,16 +731,30 @@ export default function InteractiveWorldMap() {
   return (
     <div className="space-y-4">
       {/* Heading */}
-      <div className="bg-black border-2 border-cyber-amber/50 p-4 rounded-lg">
-        <h2 className="text-2xl md:text-3xl font-bold neon-amber font-mono tracking-wider">
-          THEATER OF OPERATIONS
-        </h2>
-        <p className="text-gray-500 text-xs md:text-sm font-mono tracking-widest mt-1">
-          GLOBAL RESTRUCTURING // 2045-2067
-        </p>
+      <div className="bg-black border-2 border-cyber-amber/50 p-4 rounded-lg flex items-center justify-between">
+        <div>
+          <h2 className="text-2xl md:text-3xl font-bold neon-amber font-mono tracking-wider">
+            THEATER OF OPERATIONS
+          </h2>
+          <p className="text-gray-500 text-xs md:text-sm font-mono tracking-widest mt-1">
+            GLOBAL RESTRUCTURING // 2045-2067
+          </p>
+        </div>
+        <Link 
+          href="/map"
+          className="group relative px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono font-bold uppercase tracking-wider hover:scale-105 transition-transform border-2 border-cyan-400 shadow-lg shadow-cyan-500/50"
+        >
+          <span className="flex items-center gap-2">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+            </svg>
+            ENHANCE MAP
+          </span>
+          <div className="absolute inset-0 bg-cyan-400 opacity-0 group-hover:opacity-20 transition-opacity"></div>
+        </Link>
       </div>
 
-      <div ref={containerRef} className="relative w-full h-full bg-black rounded-lg border-2 border-cyan-900 shadow-2xl overflow-visible" style={{ minHeight: '500px' }}>
+      <div ref={containerRef} className="relative w-full h-full bg-black rounded-lg border-2 border-cyan-900 shadow-2xl overflow-visible" style={{ minHeight: '550px' }}>
         
         {/* Country Tooltip - Cyberpunk Dialog */}
         {hoveredCountry && (() => {
@@ -933,6 +1067,205 @@ export default function InteractiveWorldMap() {
         </div>
       )}
 
+      {/* API Item Tooltip */}
+      {hoveredApiItem && (
+        <div
+          className="font-mono text-xs pointer-events-none"
+          style={{ 
+            position: 'absolute',
+            left: Math.min(mousePos.x + 15, 800),
+            top: Math.min(mousePos.y + 15, 400),
+            zIndex: 10000,
+          }}
+        >
+          {/* Glow effect */}
+          <div className="absolute inset-0 blur-xl rounded-lg" style={{
+            background: hoveredApiItem.type === 'fire' ? 'rgba(255, 69, 0, 0.3)' :
+                       hoveredApiItem.type === 'flight' ? 'rgba(0, 191, 255, 0.3)' :
+                       hoveredApiItem.type === 'earthquake' ? 'rgba(255, 215, 0, 0.3)' :
+                       hoveredApiItem.type === 'nuclear' ? 'rgba(0, 255, 0, 0.3)' :
+                       'rgba(138, 43, 226, 0.3)'
+          }}></div>
+          
+          {/* Main dialog */}
+          <div 
+            className="relative bg-gradient-to-br from-black via-gray-950 to-black rounded-lg overflow-hidden min-w-[220px]"
+            style={{
+              border: '2px solid',
+              borderColor: hoveredApiItem.type === 'fire' ? '#FF4500' :
+                          hoveredApiItem.type === 'flight' ? '#00BFFF' :
+                          hoveredApiItem.type === 'earthquake' ? '#FFD700' :
+                          hoveredApiItem.type === 'nuclear' ? '#00FF00' :
+                          '#8A2BE2',
+              boxShadow: `0 0 30px ${hoveredApiItem.type === 'fire' ? 'rgba(255, 69, 0, 0.5)' :
+                                     hoveredApiItem.type === 'flight' ? 'rgba(0, 191, 255, 0.5)' :
+                                     hoveredApiItem.type === 'earthquake' ? 'rgba(255, 215, 0, 0.5)' :
+                                     hoveredApiItem.type === 'nuclear' ? 'rgba(0, 255, 0, 0.5)' :
+                                     'rgba(138, 43, 226, 0.5)'}`
+            }}
+          >
+            {/* Content */}
+            <div className="relative p-3">
+              <div className="font-bold text-sm mb-2 uppercase tracking-wide" 
+                   style={{ 
+                     color: hoveredApiItem.type === 'fire' ? '#FF4500' :
+                           hoveredApiItem.type === 'flight' ? '#00BFFF' :
+                           hoveredApiItem.type === 'earthquake' ? '#FFD700' :
+                           hoveredApiItem.type === 'nuclear' ? '#00FF00' :
+                           '#8A2BE2',
+                     textShadow: `0 0 15px ${hoveredApiItem.type === 'fire' ? 'rgba(255, 69, 0, 0.8)' :
+                                             hoveredApiItem.type === 'flight' ? 'rgba(0, 191, 255, 0.8)' :
+                                             hoveredApiItem.type === 'earthquake' ? 'rgba(255, 215, 0, 0.8)' :
+                                             hoveredApiItem.type === 'nuclear' ? 'rgba(0, 255, 0, 0.8)' :
+                                             'rgba(138, 43, 226, 0.8)'}`
+                   }}>
+                {hoveredApiItem.type === 'fire' && '🔥 FIRE DETECTION'}
+                {hoveredApiItem.type === 'flight' && '✈️ MILITARY FLIGHT'}
+                {hoveredApiItem.type === 'earthquake' && '🌍 EARTHQUAKE'}
+                {hoveredApiItem.type === 'nuclear' && '☢️ NUCLEAR FACILITY'}
+                {hoveredApiItem.type === 'military-base' && '🏛️ MILITARY BASE'}
+              </div>
+              
+              <div className="space-y-1.5 text-[10px]">
+                {hoveredApiItem.type === 'fire' && (
+                  <>
+                    {hoveredApiItem.data.brightness && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Brightness:</span>
+                        <span className="text-orange-300 ml-2 font-bold">{hoveredApiItem.data.brightness}K</span>
+                      </div>
+                    )}
+                    {hoveredApiItem.data.confidence && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Confidence:</span>
+                        <span className="text-orange-300 ml-2 font-bold">{hoveredApiItem.data.confidence}</span>
+                      </div>
+                    )}
+                    {hoveredApiItem.data.acq_date && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Date:</span>
+                        <span className="text-gray-300 ml-2">{hoveredApiItem.data.acq_date}</span>
+                      </div>
+                    )}
+                  </>
+                )}
+                
+                {hoveredApiItem.type === 'flight' && (
+                  <>
+                    {hoveredApiItem.data.callsign && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Callsign:</span>
+                        <span className="text-cyan-300 ml-2 font-bold">{hoveredApiItem.data.callsign}</span>
+                      </div>
+                    )}
+                    {hoveredApiItem.data.altitude && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Altitude:</span>
+                        <span className="text-cyan-300 ml-2">{hoveredApiItem.data.altitude} ft</span>
+                      </div>
+                    )}
+                    {hoveredApiItem.data.speed && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Speed:</span>
+                        <span className="text-cyan-300 ml-2">{hoveredApiItem.data.speed} kts</span>
+                      </div>
+                    )}
+                    {hoveredApiItem.data.country && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Country:</span>
+                        <span className="text-cyan-300 ml-2">{hoveredApiItem.data.country}</span>
+                      </div>
+                    )}
+                  </>
+                )}
+                
+                {hoveredApiItem.type === 'earthquake' && (
+                  <>
+                    {hoveredApiItem.data.magnitude && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Magnitude:</span>
+                        <span className="text-yellow-300 ml-2 font-bold">{hoveredApiItem.data.magnitude}</span>
+                      </div>
+                    )}
+                    {hoveredApiItem.data.depth && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Depth:</span>
+                        <span className="text-yellow-300 ml-2">{hoveredApiItem.data.depth} km</span>
+                      </div>
+                    )}
+                    {hoveredApiItem.data.place && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Location:</span>
+                        <span className="text-gray-300 ml-2">{hoveredApiItem.data.place}</span>
+                      </div>
+                    )}
+                  </>
+                )}
+                
+                {hoveredApiItem.type === 'nuclear' && (
+                  <>
+                    {hoveredApiItem.data.name && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Name:</span>
+                        <span className="text-green-300 ml-2 font-bold">{hoveredApiItem.data.name}</span>
+                      </div>
+                    )}
+                    {hoveredApiItem.data.type && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Type:</span>
+                        <span className="text-green-300 ml-2">{hoveredApiItem.data.type}</span>
+                      </div>
+                    )}
+                    {hoveredApiItem.data.country && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Country:</span>
+                        <span className="text-green-300 ml-2">{hoveredApiItem.data.country}</span>
+                      </div>
+                    )}
+                    {hoveredApiItem.data.status && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Status:</span>
+                        <span className="text-green-300 ml-2">{hoveredApiItem.data.status}</span>
+                      </div>
+                    )}
+                  </>
+                )}
+                
+                {hoveredApiItem.type === 'military-base' && (
+                  <>
+                    {hoveredApiItem.data.baseName && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Name:</span>
+                        <span className="text-purple-300 ml-2 font-bold">{hoveredApiItem.data.baseName}</span>
+                      </div>
+                    )}
+                    {hoveredApiItem.data.country && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Country:</span>
+                        <span className="text-purple-300 ml-2">{hoveredApiItem.data.country}</span>
+                      </div>
+                    )}
+                    {hoveredApiItem.data.type && (
+                      <div className="bg-gray-900/60 px-2 py-1 rounded">
+                        <span className="text-gray-400">Type:</span>
+                        <span className="text-purple-300 ml-2 uppercase">{hoveredApiItem.data.type}</span>
+                      </div>
+                    )}
+                  </>
+                )}
+                
+                <div className="bg-gray-900/60 px-2 py-1 rounded border border-gray-700/50 backdrop-blur-sm">
+                  <div className="text-gray-500 text-[8px] uppercase tracking-widest mb-0.5">COORDINATES</div>
+                  <div className="text-gray-300 text-[10px] font-mono">
+                    {hoveredApiItem.data.latitude?.toFixed(4)}°, {hoveredApiItem.data.longitude?.toFixed(4)}°
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* SVG Map */}
       <svg
         viewBox={`0 0 ${width} ${height}`}
@@ -1138,6 +1471,204 @@ export default function InteractiveWorldMap() {
           )
         })}
 
+        {/* API Military Bases (from external API) */}
+        {apiMilitaryBases.map((base, index) => {
+          const [x, y] = projectPoint(base.latitude, base.longitude)
+          
+          return (
+            <g 
+              key={`api-base-${index}`} 
+              onMouseEnter={() => handleApiItemHover('military-base', base)}
+              onMouseLeave={handleApiItemLeave}
+              className="cursor-pointer"
+            >
+              <rect 
+                x={x - 3} 
+                y={y - 3} 
+                width="6" 
+                height="6" 
+                fill="#8A2BE2" 
+                stroke="#fff" 
+                strokeWidth="0.5"
+                filter="url(#glow)"
+              >
+                <animate attributeName="opacity" values="0.6;1;0.6" dur="2s" repeatCount="indefinite"/>
+              </rect>
+              <circle 
+                cx={x} 
+                cy={y} 
+                r="6" 
+                fill="none" 
+                stroke="#8A2BE2" 
+                strokeWidth="0.5"
+                opacity="0.4"
+              >
+                <animate attributeName="r" from="6" to="10" dur="2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" from="0.4" to="0" dur="2s" repeatCount="indefinite"/>
+              </circle>
+            </g>
+          )
+        })}
+
+        {/* Fire Detections */}
+        {fireDetections.map((fire, index) => {
+          const [x, y] = projectPoint(fire.latitude, fire.longitude)
+          
+          return (
+            <g 
+              key={`fire-${index}`} 
+              onMouseEnter={() => handleApiItemHover('fire', fire)}
+              onMouseLeave={handleApiItemLeave}
+              className="cursor-pointer"
+            >
+              <circle 
+                cx={x} 
+                cy={y} 
+                r="3" 
+                fill="#FF4500" 
+                stroke="#FFD700" 
+                strokeWidth="0.5"
+                filter="url(#glow)"
+              >
+                <animate attributeName="r" values="3;4;3" dur="1.5s" repeatCount="indefinite"/>
+              </circle>
+              <circle 
+                cx={x} 
+                cy={y} 
+                r="5" 
+                fill="none" 
+                stroke="#FF4500" 
+                strokeWidth="0.3"
+                opacity="0.5"
+              >
+                <animate attributeName="r" from="5" to="8" dur="1.5s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" from="0.5" to="0" dur="1.5s" repeatCount="indefinite"/>
+              </circle>
+            </g>
+          )
+        })}
+
+        {/* Military Flights */}
+        {militaryFlights.map((flight, index) => {
+          const [x, y] = projectPoint(flight.latitude, flight.longitude)
+          
+          return (
+            <g 
+              key={`flight-${index}`} 
+              onMouseEnter={() => handleApiItemHover('flight', flight)}
+              onMouseLeave={handleApiItemLeave}
+              className="cursor-pointer"
+            >
+              {/* Aircraft symbol */}
+              <path 
+                d={`M ${x},${y-4} L ${x-3},${y+2} L ${x-1},${y+2} L ${x-1},${y+4} L ${x+1},${y+4} L ${x+1},${y+2} L ${x+3},${y+2} Z`}
+                fill="#00BFFF" 
+                stroke="#fff" 
+                strokeWidth="0.5"
+                filter="url(#glow)"
+              >
+                <animate attributeName="opacity" values="0.7;1;0.7" dur="1s" repeatCount="indefinite"/>
+              </path>
+              <circle 
+                cx={x} 
+                cy={y} 
+                r="6" 
+                fill="none" 
+                stroke="#00BFFF" 
+                strokeWidth="0.5"
+                opacity="0.3"
+              >
+                <animate attributeName="r" from="6" to="10" dur="2s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" from="0.3" to="0" dur="2s" repeatCount="indefinite"/>
+              </circle>
+            </g>
+          )
+        })}
+
+        {/* Earthquakes */}
+        {earthquakes.map((quake, index) => {
+          const [x, y] = projectPoint(quake.latitude, quake.longitude)
+          const size = quake.magnitude ? Math.max(2, Math.min(6, quake.magnitude)) : 3
+          
+          return (
+            <g 
+              key={`quake-${index}`} 
+              onMouseEnter={() => handleApiItemHover('earthquake', quake)}
+              onMouseLeave={handleApiItemLeave}
+              className="cursor-pointer"
+            >
+              <circle 
+                cx={x} 
+                cy={y} 
+                r={size} 
+                fill="#FFD700" 
+                stroke="#FF8C00" 
+                strokeWidth="0.5"
+                filter="url(#glow)"
+              >
+                <animate attributeName="opacity" values="0.8;1;0.8" dur="2s" repeatCount="indefinite"/>
+              </circle>
+              <circle 
+                cx={x} 
+                cy={y} 
+                r={size + 3} 
+                fill="none" 
+                stroke="#FFD700" 
+                strokeWidth="0.5"
+                opacity="0.4"
+              >
+                <animate attributeName="r" from={size + 3} to={size + 8} dur="2.5s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" from="0.4" to="0" dur="2.5s" repeatCount="indefinite"/>
+              </circle>
+            </g>
+          )
+        })}
+
+        {/* Nuclear Facilities */}
+        {nuclearFacilities.map((facility, index) => {
+          const [x, y] = projectPoint(facility.latitude, facility.longitude)
+          
+          return (
+            <g 
+              key={`nuclear-${index}`} 
+              onMouseEnter={() => handleApiItemHover('nuclear', facility)}
+              onMouseLeave={handleApiItemLeave}
+              className="cursor-pointer"
+            >
+              {/* Radiation symbol */}
+              <circle 
+                cx={x} 
+                cy={y} 
+                r="4" 
+                fill="#00FF00" 
+                stroke="#000" 
+                strokeWidth="0.5"
+                filter="url(#glow)"
+              >
+                <animate attributeName="opacity" values="0.6;0.9;0.6" dur="3s" repeatCount="indefinite"/>
+              </circle>
+              <path 
+                d={`M ${x},${y-3} L ${x},${y-1} M ${x-2.5},${y+1.5} L ${x-1},${y+0.5} M ${x+2.5},${y+1.5} L ${x+1},${y+0.5}`}
+                stroke="#000" 
+                strokeWidth="0.8"
+                opacity="0.8"
+              />
+              <circle 
+                cx={x} 
+                cy={y} 
+                r="7" 
+                fill="none" 
+                stroke="#00FF00" 
+                strokeWidth="0.5"
+                opacity="0.4"
+              >
+                <animate attributeName="r" from="7" to="11" dur="3s" repeatCount="indefinite"/>
+                <animate attributeName="opacity" from="0.4" to="0" dur="3s" repeatCount="indefinite"/>
+              </circle>
+            </g>
+          )
+        })}
+
         {/* Labels for key countries */}
         <text x={projectPoint(39, -95)[0]} y={projectPoint(39, -95)[1]} 
               fontSize="14" fill="#00aaff" fontWeight="bold" fontFamily="monospace" 
@@ -1148,14 +1679,34 @@ export default function InteractiveWorldMap() {
               textAnchor="middle" opacity="0.9">IRAN</text>
 
         {/* Legend */}
-        <rect x="20" y="410" width="300" height="80" fill="#000" stroke="#ffb000" strokeWidth="1" opacity="0.95"/>
-        <text x="35" y="430" fontSize="12" fill="#ffb000" fontFamily="monospace" fontWeight="bold">⚔ CONFLICT STATUS LEGEND</text>
-        <circle cx="35" cy="445" r="4" fill="#00aaff"/>
-        <text x="50" y="449" fontSize="10" fill="#ccc" fontFamily="monospace">US Military Installation</text>
-        <circle cx="35" cy="463" r="4" fill="#ff0066"/>
-        <text x="50" y="467" fontSize="10" fill="#ccc" fontFamily="monospace">Strategic Target (Iran)</text>
-        <line x1="35" y1="477" x2="65" y2="477" stroke="#00aaff" strokeWidth="2" markerEnd="url(#arrowBlue)"/>
-        <text x="75" y="481" fontSize="10" fill="#ccc" fontFamily="monospace">US Strike Vector</text>
+        <rect x="20" y="340" width="340" height="165" fill="#000" stroke="#ffb000" strokeWidth="1" opacity="0.95"/>
+        <text x="35" y="360" fontSize="12" fill="#ffb000" fontFamily="monospace" fontWeight="bold">⚔ GLOBAL THREAT LEGEND</text>
+        
+        {/* Original items */}
+        <circle cx="35" cy="378" r="4" fill="#00aaff"/>
+        <text x="50" y="382" fontSize="9" fill="#ccc" fontFamily="monospace">US Military Installation</text>
+        
+        <circle cx="35" cy="395" r="4" fill="#ff0066"/>
+        <text x="50" y="399" fontSize="9" fill="#ccc" fontFamily="monospace">Strategic Target (Iran)</text>
+        
+        <line x1="35" y1="409" x2="65" y2="409" stroke="#00aaff" strokeWidth="2" markerEnd="url(#arrowBlue)"/>
+        <text x="75" y="413" fontSize="9" fill="#ccc" fontFamily="monospace">US Strike Vector</text>
+        
+        {/* New API data items */}
+        <rect x="33" y="421" width="6" height="6" fill="#8A2BE2" stroke="#fff" strokeWidth="0.5"/>
+        <text x="50" y="428" fontSize="9" fill="#ccc" fontFamily="monospace">Military Base (Global)</text>
+        
+        <circle cx="35" cy="441" r="3" fill="#FF4500" stroke="#FFD700" strokeWidth="0.5"/>
+        <text x="50" y="445" fontSize="9" fill="#ccc" fontFamily="monospace">Fire Detection</text>
+        
+        <path d="M 35,454 L 32,460 L 34,460 L 34,462 L 36,462 L 36,460 L 38,460 Z" fill="#00BFFF" stroke="#fff" strokeWidth="0.5"/>
+        <text x="50" y="461" fontSize="9" fill="#ccc" fontFamily="monospace">Military Flight</text>
+        
+        <circle cx="35" cy="474" r="3" fill="#FFD700" stroke="#FF8C00" strokeWidth="0.5"/>
+        <text x="50" y="478" fontSize="9" fill="#ccc" fontFamily="monospace">Earthquake Activity</text>
+        
+        <circle cx="35" cy="487" r="4" fill="#00FF00" stroke="#000" strokeWidth="0.5"/>
+        <text x="50" y="491" fontSize="9" fill="#ccc" fontFamily="monospace">Nuclear Facility</text>
       </svg>
       </div>
     </div>

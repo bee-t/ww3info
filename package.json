@@ -9,8 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/d3-selection": "^3.0.11",
+    "@types/d3-transition": "^3.0.9",
+    "@types/d3-zoom": "^3.0.8",
     "d3-geo": "^3.1.1",
     "d3-scale": "^4.0.2",
+    "d3-selection": "^3.0.0",
+    "d3-transition": "^3.0.1",
+    "d3-zoom": "^3.0.0",
     "framer-motion": "^11.0.3",
     "lucide-react": "^0.316.0",
     "next": "^14.1.0",
