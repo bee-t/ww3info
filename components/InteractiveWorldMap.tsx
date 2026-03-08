@@ -731,21 +731,21 @@ export default function InteractiveWorldMap() {
   return (
     <div className="space-y-4">
       {/* Heading */}
-      <div className="bg-black border-2 border-cyber-amber/50 p-4 rounded-lg flex items-center justify-between">
+      <div className="bg-black border-2 border-cyber-amber/50 p-3 md:p-4 rounded-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0">
         <div>
-          <h2 className="text-2xl md:text-3xl font-bold neon-amber font-mono tracking-wider">
+          <h2 className="text-lg sm:text-2xl md:text-3xl font-bold neon-amber font-mono tracking-wider">
             THEATER OF OPERATIONS
           </h2>
-          <p className="text-gray-500 text-xs md:text-sm font-mono tracking-widest mt-1">
+          <p className="text-gray-500 text-[10px] sm:text-xs md:text-sm font-mono tracking-widest mt-1">
             GLOBAL RESTRUCTURING // 2045-2067
           </p>
         </div>
         <Link 
           href="/map"
-          className="group relative px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono font-bold uppercase tracking-wider hover:scale-105 transition-transform border-2 border-cyan-400 shadow-lg shadow-cyan-500/50"
+          className="group relative px-4 sm:px-6 py-2 sm:py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-mono font-bold uppercase tracking-wider hover:scale-105 transition-transform border-2 border-cyan-400 shadow-lg shadow-cyan-500/50 text-xs sm:text-sm"
         >
           <span className="flex items-center gap-2">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
             </svg>
             ENHANCE MAP
@@ -754,18 +754,22 @@ export default function InteractiveWorldMap() {
         </Link>
       </div>
 
-      <div ref={containerRef} className="relative w-full h-full bg-black rounded-lg border-2 border-cyan-900 shadow-2xl overflow-visible" style={{ minHeight: '550px' }}>
+      <div ref={containerRef} className="relative w-full h-full bg-black rounded-lg border-2 border-cyan-900 shadow-2xl overflow-visible" style={{ minHeight: 'clamp(400px, 70vh, 550px)' }}>
         
         {/* Country Tooltip - Cyberpunk Dialog */}
         {hoveredCountry && (() => {
           const metadata = getCountryMetadata(hoveredCountry)
+          const isMobile = typeof window !== 'undefined' && window.innerWidth < 640
+          const tooltipWidth = isMobile ? 280 : 350
+          const maxLeft = typeof window !== 'undefined' ? window.innerWidth - tooltipWidth - 20 : 800
+          const maxTop = typeof window !== 'undefined' ? window.innerHeight - 300 : 400
           return (
           <div
-          className="font-mono text-xs pointer-events-none max-w-[350px]"
+          className="font-mono text-[10px] sm:text-xs pointer-events-none w-[280px] sm:max-w-[350px]"
           style={{ 
             position: 'absolute',
-            left: Math.min(mousePos.x + 15, 800),
-            top: Math.min(mousePos.y + 15, 400),
+            left: Math.min(mousePos.x + 15, maxLeft),
+            top: Math.min(mousePos.y + 15, maxTop),
             zIndex: 10000,
           }}
         >

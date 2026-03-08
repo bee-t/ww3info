@@ -94,4 +94,29 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #ff8800;
   }
+  
+  /* Mobile touch improvements */
+  @media (max-width: 640px) {
+    /* Prevent horizontal scroll on mobile */
+    body {
+      overflow-x: hidden;
+    }
+    
+    /* Better touch targets */
+    button, a {
+      min-height: 44px;
+      min-width: 44px;
+    }
+    
+    /* Reduce scanline intensity on mobile for performance */
+    .scanlines::before {
+      opacity: 0.3;
+    }
+    
+    /* Smoother scrolling on mobile */
+    * {
+      -webkit-tap-highlight-color: rgba(255, 176, 0, 0.2);
+      -webkit-overflow-scrolling: touch;
+    }
+  }
 }

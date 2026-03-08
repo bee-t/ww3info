@@ -1,11 +1,11 @@
 {
   "/_not-found/page": "app/_not-found/page.js",
-  "/map/page": "app/map/page.js",
   "/page": "app/page.js",
+  "/map/page": "app/map/page.js",
   "/api/military-bases/route": "app/api/military-bases/route.js",
-  "/api/fire-detections/route": "app/api/fire-detections/route.js",
   "/api/military-flights/route": "app/api/military-flights/route.js",
+  "/api/fire-detections/route": "app/api/fire-detections/route.js",
   "/api/earthquakes/route": "app/api/earthquakes/route.js",
-  "/api/nuclear-facilities/route": "app/api/nuclear-facilities/route.js",
-  "/api/news/route": "app/api/news/route.js"
+  "/api/news/route": "app/api/news/route.js",
+  "/api/nuclear-facilities/route": "app/api/nuclear-facilities/route.js"
 }

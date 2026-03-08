@@ -625,28 +625,28 @@ export default function EnhancedWorldMap() {
   return (
     <div className="relative">
       {/* Zoom Controls */}
-      <div className="absolute top-4 right-4 z-50 flex flex-col gap-2">
+      <div className="absolute top-2 sm:top-4 right-2 sm:right-4 z-50 flex flex-col gap-1 sm:gap-2">
         <button
           onClick={handleZoomIn}
-          className="bg-black/90 border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black px-4 py-2 font-mono font-bold transition-all shadow-lg shadow-cyan-500/50 hover:shadow-cyan-400"
+          className="bg-black/90 border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black px-2 sm:px-4 py-1 sm:py-2 font-mono font-bold transition-all shadow-lg shadow-cyan-500/50 hover:shadow-cyan-400"
         >
-          <span className="text-2xl">+</span>
+          <span className="text-xl sm:text-2xl">+</span>
         </button>
         <button
           onClick={handleZoomOut}
-          className="bg-black/90 border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black px-4 py-2 font-mono font-bold transition-all shadow-lg shadow-cyan-500/50 hover:shadow-cyan-400"
+          className="bg-black/90 border-2 border-cyan-500 text-cyan-400 hover:bg-cyan-500 hover:text-black px-2 sm:px-4 py-1 sm:py-2 font-mono font-bold transition-all shadow-lg shadow-cyan-500/50 hover:shadow-cyan-400"
         >
-          <span className="text-2xl">−</span>
+          <span className="text-xl sm:text-2xl">−</span>
         </button>
         <button
           onClick={handleResetZoom}
-          className="bg-black/90 border-2 border-amber-500 text-amber-400 hover:bg-amber-500 hover:text-black px-3 py-2 font-mono text-xs font-bold transition-all shadow-lg shadow-amber-500/50 hover:shadow-amber-400"
+          className="bg-black/90 border-2 border-amber-500 text-amber-400 hover:bg-amber-500 hover:text-black px-2 sm:px-3 py-1 sm:py-2 font-mono text-[10px] sm:text-xs font-bold transition-all shadow-lg shadow-amber-500/50 hover:shadow-amber-400"
         >
           RESET
         </button>
-        <div className="bg-black/90 border-2 border-gray-600 px-3 py-2 text-center">
-          <div className="text-gray-400 text-xs font-mono mb-1">ZOOM</div>
-          <div className="text-cyan-300 text-lg font-mono font-bold">{zoomLevel}×</div>
+        <div className="bg-black/90 border-2 border-gray-600 px-2 sm:px-3 py-1 sm:py-2 text-center">
+          <div className="text-gray-400 text-[10px] sm:text-xs font-mono mb-1">ZOOM</div>
+          <div className="text-cyan-300 text-base sm:text-lg font-mono font-bold">{zoomLevel}×</div>
         </div>
       </div>
 
@@ -820,13 +820,17 @@ export default function EnhancedWorldMap() {
         const basicData = getBasicCountryData(hoveredCountry)
         const flag = metadata?.flag || basicData?.flag
         const displayName = metadata?.name || basicData?.name || hoveredCountryName || hoveredCountry
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 640
+        const tooltipWidth = isMobile ? 280 : 320
+        const maxLeft = typeof window !== 'undefined' ? Math.max(20, window.innerWidth - tooltipWidth - 20) : 800
+        const maxTop = typeof window !== 'undefined' ? Math.max(20, window.innerHeight - 350) : 400
         
         return (
           <div
-            className="fixed pointer-events-none z-[100] font-mono text-xs max-w-[320px]"
+            className="fixed pointer-events-none z-[100] font-mono text-[10px] sm:text-xs w-[280px] sm:max-w-[320px]"
             style={{ 
-              left: Math.min(mousePos.x + 15, window.innerWidth - 340),
-              top: Math.min(mousePos.y + 15, window.innerHeight - 250),
+              left: Math.max(20, Math.min(mousePos.x + 15, maxLeft)),
+              top: Math.max(20, Math.min(mousePos.y + 15, maxTop)),
             }}
           >
             {/* Glow effect */}
